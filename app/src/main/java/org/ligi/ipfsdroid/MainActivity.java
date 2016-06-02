@@ -3,7 +3,6 @@ package org.ligi.ipfsdroid;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -77,26 +76,6 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.catReadmeButton)
     void catReadmeButton() {
         runCommandWithResultAlert("cat /ipfs/QmVtU7ths96fMgZ8YSZAbKghyieq7AjxNdcqyVzxTt3qVe/readme");
-    }
-
-    @OnClick(R.id.addButton)
-    void addButton() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                final String foo = new IPFSAPI().addString("foo").getHash();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        new AlertDialog.Builder(MainActivity.this).setMessage(foo).show();
-                    }
-                });
-
-            }
-        }).start();
     }
 
     @BindView(R.id.textEdit)
