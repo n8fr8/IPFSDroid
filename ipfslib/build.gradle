@@ -1,0 +1,15 @@
+plugins {
+    id "org.golang.mobile.bind" version "0.2.5"
+}
+
+gobind {
+
+    pkg = "github.com/ipfs/go-ipfs/cmd/ipfslib"
+
+    /* GOPATH where the Go package is; check `go env` */
+    GOPATH = "/home/ligi/go"
+
+    //
+    //GOARCH = "arm"
+}
+

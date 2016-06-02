@@ -3,6 +3,7 @@ package org.ligi.ipfsdroid;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,30 +18,32 @@ import org.ligi.tracedroid.sending.TraceDroidEmailSender;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Inject
-    IPFSBinaryController ipfsBinaryController;
+    IPFSExecutor ipfsBinaryController;
 
     @BindView(R.id.installButton)
     Button installButton;
 
-    @BindViews({R.id.versionButton, R.id.gcButton, R.id.ipfsInitButton, R.id.daemonButton, R.id.swarmPeersButton, R.id.catReadmeButton,R.id.commandEdit,R.id.excecuteFreeCommand})
+    @BindViews({R.id.versionButton,
+                R.id.gcButton,
+                R.id.ipfsInitButton,
+                R.id.daemonButton,
+                R.id.swarmPeersButton,
+                R.id.catReadmeButton,
+                R.id.commandEdit,
+                R.id.executeFreeCommand})
     List<View> actionViews;
 
     @BindView(R.id.commandEdit)
     EditText commandEdit;
-
-    @OnClick(R.id.installButton)
-    void onInstallClick() {
-        ipfsBinaryController.copy();
-        refresh();
-    }
 
     @OnClick(R.id.daemonButton)
     void onDaemonClick() {
         startService(new Intent(this, IPFSDaemonService.class));
     }
 
-    @OnClick(R.id.excecuteFreeCommand)
+    @OnClick(R.id.executeFreeCommand)
     void onExec() {
         runCommandWithResultAlert(commandEdit.getText().toString());
     }
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.ipfsInitButton)
     void onInitClick() {
+
         runCommandWithResultAlert("init");
     }
 
@@ -73,6 +77,38 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.catReadmeButton)
     void catReadmeButton() {
         runCommandWithResultAlert("cat /ipfs/QmVtU7ths96fMgZ8YSZAbKghyieq7AjxNdcqyVzxTt3qVe/readme");
+    }
+
+    @OnClick(R.id.addButton)
+    void addButton() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final String foo = new IPFSAPI().addString("foo").getHash();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        new AlertDialog.Builder(MainActivity.this).setMessage(foo).show();
+                    }
+                });
+
+            }
+        }).start();
+    }
+
+    @BindView(R.id.textEdit)
+    EditText textEdit;
+
+    @OnClick(R.id.addTextCommand)
+    void addTextButton() {
+        final Intent intent = new Intent(this, AddIPFSContent.class);
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, textEdit.getText().toString());
+        startActivity(intent);
     }
 
     @OnClick(R.id.exampleButton)
@@ -101,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        installButton.setVisibility(ipfsBinaryController.getFile().exists() ? View.GONE : View.VISIBLE);
+        installButton.setVisibility(ipfsBinaryController.isReady() ? View.GONE : View.VISIBLE);
 
-        final int actionButtonsVisibility = ipfsBinaryController.getFile().exists() ? View.VISIBLE : View.GONE;
+        final int actionButtonsVisibility = ipfsBinaryController.isReady() ? View.VISIBLE : View.GONE;
 
         for (final View actionButton : actionViews) {
             actionButton.setVisibility(actionButtonsVisibility);

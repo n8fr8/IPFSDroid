@@ -3,9 +3,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/pin"
-            android:title="pin"
+            android:id="@+id/copy"
+            android:title="copy"
             app:showAsAction="ifRoom|withText"
-            android:icon="@drawable/ic_file_attachment"
+            android:icon="@drawable/ic_content_content_copy"
             />
+
+
 </menu>

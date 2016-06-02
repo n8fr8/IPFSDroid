@@ -36,7 +36,7 @@
             android:id="@+id/versionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Execute version command"
+            android:text="version"
             />
 
     <Button
@@ -71,8 +71,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
         <android.support.design.widget.TextInputEditText
                 android:layout_weight="1"
@@ -80,16 +79,46 @@
                 android:hint="enter command"
                 android:id="@+id/commandEdit"
                 android:layout_height="wrap_content"/>
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/excecuteFreeCommand"
+                android:id="@+id/executeFreeCommand"
                 android:text="exec"/>
     </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputEditText
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:hint="enter text"
+                android:id="@+id/textEdit"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addTextCommand"
+                android:text="add"/>
+    </LinearLayout>
+
     <Button
             android:id="@+id/exampleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Open test links in browser"
             />
+
+
+    <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add"
+            />
+
 </LinearLayout>

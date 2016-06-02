@@ -17,7 +17,7 @@ public class IPFSBrowseActivity extends AppCompatActivity {
     WebView webView;
 
     @Inject
-    IPFSBinaryController ipfsBinaryController;
+    IPFSExecutor ipfsBinaryController;
     private IPXSResource ipxsResource;
 
     @Override

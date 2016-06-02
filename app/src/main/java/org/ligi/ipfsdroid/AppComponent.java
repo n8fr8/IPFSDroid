@@ -9,4 +9,8 @@ public interface AppComponent {
     void inject(IPFSBrowseActivity ipfsBrowseActivity);
 
     void inject(MainActivity mainActivity);
+
+    void inject(IPFSAPI api);
+
+    void inject(AddIPFSContent addIPFSContent);
 }
