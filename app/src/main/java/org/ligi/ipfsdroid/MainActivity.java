@@ -4,35 +4,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import java.util.List;
 import javax.inject.Inject;
 import org.ligi.tracedroid.sending.TraceDroidEmailSender;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Inject
     IPFSExecutor ipfsBinaryController;
-
-    @BindView(R.id.installButton)
-    Button installButton;
-
-    @BindViews({R.id.versionButton,
-                R.id.gcButton,
-                R.id.ipfsInitButton,
-                R.id.daemonButton,
-                R.id.swarmPeersButton,
-                R.id.catReadmeButton,
-                R.id.commandEdit,
-                R.id.executeFreeCommand})
-    List<View> actionViews;
 
     @BindView(R.id.commandEdit)
     EditText commandEdit;
@@ -59,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.ipfsInitButton)
     void onInitClick() {
-
         runCommandWithResultAlert("init");
     }
 
@@ -108,21 +89,4 @@ public class MainActivity extends AppCompatActivity {
 
         TraceDroidEmailSender.sendStackTraces("ligi@ligi.de", this);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refresh();
-    }
-
-    private void refresh() {
-        installButton.setVisibility(ipfsBinaryController.isReady() ? View.GONE : View.VISIBLE);
-
-        final int actionButtonsVisibility = ipfsBinaryController.isReady() ? View.VISIBLE : View.GONE;
-
-        for (final View actionButton : actionViews) {
-            actionButton.setVisibility(actionButtonsVisibility);
-        }
-    }
-
 }

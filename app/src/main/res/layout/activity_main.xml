@@ -19,13 +19,6 @@
             />
 
     <Button
-            android:id="@+id/installButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Install IPFS"
-            />
-
-    <Button
             android:id="@+id/daemonButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
